@@ -1,3 +1,4 @@
+import { Link as ReactRouterLink } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -16,7 +17,6 @@ import {
   useTheme,
   Icon,
 } from "@chakra-ui/react";
-
 import {
   FaMedium,
   FaMagnifyingGlass,
@@ -27,9 +27,9 @@ import {
   FaRegRectangleList,
   FaRegChartBar,
 } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { AiOutlineMediumWorkmark } from "react-icons/ai";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const theme = useTheme();
 
   const StyledMenuItem = ({ icon, text }) => {
@@ -71,106 +71,154 @@ export default function Navbar() {
 
   return (
     <>
-      <Box borderY="1px" borderColor={theme.colors.border.grey}>
-        <Flex h={14} alignItems="center" justifyContent="space-between" mx={6}>
+      <Box
+        borderY="1px"
+        borderColor={user ? theme.colors.border.grey : "blackAlpha"}
+      >
+        <Flex
+          h={user ? 14 : 20}
+          alignItems="center"
+          justifyContent="space-between"
+          mx={6}
+        >
           <Flex alignItems="center">
-            <Icon
-              as={FaMedium}
-              boxSize="2.75em"
-              _hover={{ cursor: "pointer", color: "black" }}
-            />
-
-            <InputGroup
-              mx={4}
-              display={{ base: "none", sm: "flex" }}
-              color={theme.colors.text.grey}
-            >
-              <InputLeftElement fontSize="1.2em" px="28px">
-                <Link to="/">
-                  <Icon as={FaMagnifyingGlass} focusable="true" />
-                </Link>
-              </InputLeftElement>
-              <Input
-                placeholder="Search"
-                borderRadius={20}
-                bgColor={theme.colors.bg.grey}
-                border="none"
-                _placeholder={{
-                  color: theme.colors.text.grey,
-                  fontSize: "sm",
-                  paddingLeft: "16px",
-                }}
+            {" "}
+            <ReactRouterLink to="/">
+              <Icon
+                as={FaMedium}
+                boxSize="2.75em"
+                _hover={{ cursor: "pointer" }}
               />
-            </InputGroup>
+            </ReactRouterLink>
+            {user ? (
+              <InputGroup
+                mx={4}
+                display={{ base: "none", sm: "flex" }}
+                color={theme.colors.text.grey}
+              >
+                <InputLeftElement fontSize="1.2em" px="28px">
+                  <Icon as={FaMagnifyingGlass} focusable="true" />
+                </InputLeftElement>
+                <Input
+                  placeholder="Search"
+                  borderRadius={20}
+                  bgColor={theme.colors.bg.grey}
+                  border="none"
+                  _placeholder={{
+                    color: theme.colors.text.grey,
+                    fontSize: "sm",
+                    paddingLeft: "16px",
+                  }}
+                />
+              </InputGroup>
+            ) : (
+              <Icon
+                as={AiOutlineMediumWorkmark}
+                boxSize="7.5em"
+                _hover={{ cursor: "pointer" }}
+                mx={4}
+              />
+            )}
           </Flex>
 
           <Flex alignItems="center" color={theme.colors.text.grey}>
-            <Stack direction="row" spacing={7} alignItems="center">
-              <Flex
-                gap={2}
-                alignItems="center"
-                _hover={{ cursor: "pointer", color: "black" }}
-              >
-                <Icon
-                  aria-label="write post"
-                  as={FaRegPenToSquare}
-                  boxSize={5}
-                />
-                <Text fontSize="sm">Write</Text>
-              </Flex>
-              <Icon
-                bg="white"
-                aria-label="search"
-                as={FaMagnifyingGlass}
-                display={{ base: "flex", md: "none" }}
-                boxSize={5}
-                _hover={{ cursor: "pointer", color: "black" }}
-              />
-
-              <Icon
-                aria-label="notifications"
-                as={FaRegBell}
-                display={{ base: "none", md: "flex" }}
-                boxSize={5}
-                _hover={{ cursor: "pointer", color: "black" }}
-              />
-              <Menu isLazy px="66px">
-                <MenuButton
-                  as={Button}
-                  rounded="full"
-                  variant="link"
-                  minW={0}
-                  _hover={{ filter: "brightness(0.7)" }}
+            {user ? (
+              <Stack direction="row" spacing={7} alignItems="center">
+                <Flex
+                  gap={2}
+                  alignItems="center"
+                  _hover={{ cursor: "pointer", color: "black" }}
                 >
-                  <Avatar
-                    size="sm"
-                    src="https://avatars.dicebear.com/api/male/username.svg"
+                  <Icon
+                    aria-label="write post"
+                    as={FaRegPenToSquare}
+                    boxSize={5}
                   />
-                </MenuButton>
-                <MenuList alignItems="center" px="16px">
-                  <MenuItem
-                    icon={<FaRegPenToSquare size="16px" />}
-                    display={{ base: "flex", sm: "none" }}
-                    mb="4px"
+                  <Text fontSize="sm">Write</Text>
+                </Flex>
+                <Icon
+                  bg="white"
+                  aria-label="search"
+                  as={FaMagnifyingGlass}
+                  display={{ base: "flex", md: "none" }}
+                  boxSize={5}
+                  _hover={{ cursor: "pointer", color: "black" }}
+                />
+
+                <Icon
+                  aria-label="notifications"
+                  as={FaRegBell}
+                  display={{ base: "none", md: "flex" }}
+                  boxSize={5}
+                  _hover={{ cursor: "pointer", color: "black" }}
+                />
+                <Menu isLazy px="66px">
+                  <MenuButton
+                    as={Button}
+                    rounded="full"
+                    variant="link"
+                    minW={0}
+                    _hover={{ filter: "brightness(0.7)" }}
                   >
-                    Write
-                  </MenuItem>
-                  {menuItemsList.map((item) => {
-                    if (item.divider) {
-                      return <MenuDivider key={item.id} />;
-                    } else {
-                      return (
-                        <StyledMenuItem
-                          key={item.id}
-                          icon={item.icon}
-                          text={item.text}
-                        />
-                      );
-                    }
-                  })}
-                </MenuList>
-              </Menu>
-            </Stack>
+                    <Avatar
+                      size="sm"
+                      src="https://avatars.dicebear.com/api/male/username.svg"
+                    />
+                  </MenuButton>
+                  <MenuList alignItems="center" px="16px">
+                    <MenuItem
+                      icon={<FaRegPenToSquare size="16px" />}
+                      display={{ base: "flex", sm: "none" }}
+                      mb="4px"
+                    >
+                      Write
+                    </MenuItem>
+                    {menuItemsList.map((item) => {
+                      if (item.divider) {
+                        return <MenuDivider key={item.id} />;
+                      } else {
+                        return (
+                          <StyledMenuItem
+                            key={item.id}
+                            icon={item.icon}
+                            text={item.text}
+                          />
+                        );
+                      }
+                    })}
+                  </MenuList>
+                </Menu>
+              </Stack>
+            ) : (
+              <Stack direction="row" spacing={5} alignItems="center">
+                <Button
+                  as={ReactRouterLink}
+                  to="/login"
+                  variant="outline"
+                  color="black"
+                  borderRadius="20px"
+                  fontWeight="normal"
+                  borderColor="black"
+                  _hover={{ bg: "white" }}
+                >
+                  Sign in
+                </Button>
+
+                <Button
+                  as={ReactRouterLink}
+                  to="/register"
+                  variant="solid"
+                  color="white"
+                  borderRadius="20px"
+                  fontWeight="normal"
+                  bg="blackAlpha.900"
+                  borderColor="white"
+                  _hover={{ bg: "black" }}
+                >
+                  Sign up
+                </Button>
+              </Stack>
+            )}
           </Flex>
         </Flex>
       </Box>
