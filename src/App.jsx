@@ -9,12 +9,13 @@ import Error from "./views/Error";
 import Login from "./views/auth/Login";
 import ProtectedRoute from "./views/ProtectedRoute";
 import Register from "./views/auth/Register";
+import { useAuthStore } from "./Store";
 function App() {
-  const [user, setUser] = useState(null);
+  const user = useAuthStore((state) => state.currentEmail);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
+        <Route path="/" element={<SharedLayout user={user} />}>
           <Route index element={<Home />} />
           <Route
             path="posts"
@@ -41,7 +42,7 @@ function App() {
             }
           />
 
-          <Route path="login" element={<Login setUser={setUser} />} />
+          <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="*" element={<Error />} />
         </Route>

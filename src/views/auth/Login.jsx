@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuthStore } from "../../Store";
 import {
   Button,
   Modal,
@@ -8,7 +8,6 @@ import {
   ModalContent,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   ModalHeader,
   Text,
   Input,
@@ -16,9 +15,9 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-export default function Login({ setUser, isOpen, onClose }) {
+export default function Login({ isOpen, onClose }) {
   const navigate = useNavigate();
-  //   const [email, setEmail] = useState("");
+  const { setCurrentEmail } = useAuthStore();
 
   const {
     handleSubmit,
@@ -26,27 +25,14 @@ export default function Login({ setUser, isOpen, onClose }) {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(values) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 1000);
-      onClose();
-      navigate("/posts");
-    });
-  }
+  const onSubmit = (values) => {
+    setCurrentEmail(values.email);
+    onClose();
+    navigate("/posts");
+  };
 
-  //   const handleSubmit
-  //   if (!email) return;
-  //   setUser({ email: email });
-  //   navigate("/posts");
-
-  //   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
         <ModalOverlay />
         <ModalContent
@@ -71,18 +57,17 @@ export default function Login({ setUser, isOpen, onClose }) {
             </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl isInvalid={errors.name}>
-                {/* <FormLabel htmlFor="email">Your email</FormLabel> */}
                 <Input
                   id="email"
-                  //   placeholder="email"
                   {...register("email", {
                     required: "This is required",
                   })}
                   variant="flushed"
                   borderBottomColor="black"
+                  type="email"
                 />
                 <FormErrorMessage>
-                  {errors.name && errors.name.message}
+                  {errors.email && errors.email.message}
                 </FormErrorMessage>
               </FormControl>
               <Button
@@ -96,7 +81,6 @@ export default function Login({ setUser, isOpen, onClose }) {
                 _hover={{ bg: "black" }}
                 mt={10}
                 width="226px"
-                //   onClick={openRegisterModal}
               >
                 Continue
               </Button>

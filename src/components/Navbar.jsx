@@ -31,11 +31,11 @@ import {
 import { AiOutlineMediumWorkmark } from "react-icons/ai";
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
-import BlackButton from "./BlackButton";
+import { useAuthStore } from "../Store";
 
 export default function Navbar({ user }) {
   const theme = useTheme();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const { logout } = useAuthStore();
   const {
     isOpen: isLoginModalOpen,
     onOpen: openLoginModal,
@@ -47,7 +47,7 @@ export default function Navbar({ user }) {
     onClose: closeRegisterModal,
   } = useDisclosure();
 
-  const StyledMenuItem = ({ icon, text }) => {
+  const StyledMenuItem = ({ icon, text, onClick }) => {
     return (
       <MenuItem
         icon={icon}
@@ -56,6 +56,7 @@ export default function Navbar({ user }) {
           bg: "white",
           color: "black",
         }}
+        onClick={onClick}
       >
         {text}
       </MenuItem>
@@ -80,8 +81,8 @@ export default function Navbar({ user }) {
     { id: 15, text: "Account Settings" },
     { id: 16, text: "Gift a membership" },
     { id: 17, divider: true },
-    { id: 18, text: "Sign out" },
-    { id: 19, text: "User email" },
+    { id: 18, text: "Sign out", onClick: logout },
+    { id: 19, text: user },
   ];
 
   return (
@@ -191,6 +192,14 @@ export default function Navbar({ user }) {
                     {menuItemsList.map((item) => {
                       if (item.divider) {
                         return <MenuDivider key={item.id} />;
+                      } else if (item.onClick) {
+                        return (
+                          <StyledMenuItem
+                            key={item.id}
+                            text={item.text}
+                            onClick={item.onClick}
+                          />
+                        );
                       } else {
                         return (
                           <StyledMenuItem
@@ -234,11 +243,6 @@ export default function Navbar({ user }) {
                 >
                   Sign up
                 </Button>
-                {/* <BlackButton
-                  onClick={openRegisterModal}
-                  text={"Sign up"}
-                  to={"/register"}
-                /> */}
               </Stack>
             )}
           </Flex>
