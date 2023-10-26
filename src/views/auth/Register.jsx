@@ -1,26 +1,23 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
-  useDisclosure,
   Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   ModalHeader,
   Text,
   Input,
   FormErrorMessage,
-  FormLabel,
   FormControl,
 } from "@chakra-ui/react";
+import { useAuthStore } from "../../Store";
 
-export default function Register({ setUser, isOpen, onClose }) {
+export default function Register({ isOpen, onClose }) {
   const navigate = useNavigate();
-  //   const [email, setEmail] = useState("");
+  const { currentUser, setCurrentUser } = useAuthStore();
 
   const {
     handleSubmit,
@@ -28,16 +25,13 @@ export default function Register({ setUser, isOpen, onClose }) {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(values) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 1000);
-      onClose();
-      navigate("/login");
-    });
-  }
+  const onSubmit = (values) => {
+    // setCurrentUser(values);
+    setCurrentUser({ ...currentUser, email: values.email });
+    onClose();
+    navigate("/profile");
+    onClose();
+  };
 
   return (
     <>
@@ -61,11 +55,9 @@ export default function Register({ setUser, isOpen, onClose }) {
               Your email
             </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormControl isInvalid={errors.name}>
-                {/* <FormLabel htmlFor="email">Your email</FormLabel> */}
+              <FormControl isInvalid={errors.email}>
                 <Input
                   id="email"
-                  //   placeholder="email"
                   {...register("email", {
                     required: "This is required",
                   })}
@@ -73,7 +65,7 @@ export default function Register({ setUser, isOpen, onClose }) {
                   borderBottomColor="black"
                 />
                 <FormErrorMessage>
-                  {errors.name && errors.name.message}
+                  {errors.email && errors.email.message}
                 </FormErrorMessage>
               </FormControl>
               <Button

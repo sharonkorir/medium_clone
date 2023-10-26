@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
 import SharedLayout from "./components/SharedLayout";
 import Home from "./views/Home";
 import Posts from "./views/posts/Posts";
@@ -10,11 +9,20 @@ import Login from "./views/auth/Login";
 import ProtectedRoute from "./views/ProtectedRoute";
 import Register from "./views/auth/Register";
 import { useAuthStore } from "./Store";
+import Profile from "./views/auth/Profile";
 function App() {
-  const user = useAuthStore((state) => state.currentEmail);
+  const user = useAuthStore((state) => state.currentUser);
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute user={user}>
+              <Profile user={user} />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/" element={<SharedLayout user={user} />}>
           <Route index element={<Home />} />
           <Route
@@ -33,6 +41,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="post/:postId"
             element={

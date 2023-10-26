@@ -17,7 +17,7 @@ import {
 
 export default function Login({ isOpen, onClose }) {
   const navigate = useNavigate();
-  const { setCurrentEmail } = useAuthStore();
+  const { currentUser, setCurrentUser } = useAuthStore();
 
   const {
     handleSubmit,
@@ -26,7 +26,8 @@ export default function Login({ isOpen, onClose }) {
   } = useForm();
 
   const onSubmit = (values) => {
-    setCurrentEmail(values.email);
+    // setCurrentUser(values);
+    setCurrentUser({ ...currentUser, email: values.email });
     onClose();
     navigate("/posts");
   };
@@ -56,7 +57,7 @@ export default function Login({ isOpen, onClose }) {
               Your email
             </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormControl isInvalid={errors.name}>
+              <FormControl isInvalid={errors.email}>
                 <Input
                   id="email"
                   {...register("email", {

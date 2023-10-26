@@ -82,7 +82,7 @@ export default function Navbar({ user }) {
     { id: 16, text: "Gift a membership" },
     { id: 17, divider: true },
     { id: 18, text: "Sign out", onClick: logout },
-    { id: 19, text: user },
+    { id: 19, text: user?.email },
   ];
 
   return (

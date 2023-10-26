@@ -4,13 +4,13 @@ import { persist } from "zustand/middleware";
 export const useAuthStore = create(
   persist(
     (set, get) => ({
-      currentEmail: null,
-      setCurrentEmail: (currentEmail) => set({ currentEmail }),
+      currentUser: null,
+      setCurrentUser: (currentUser) => set({ currentUser }),
       //clear user to logout
       logout: () =>
         set(() => {
           return {
-            currentEmail: null,
+            currentUser: null,
           };
         }),
     }),
