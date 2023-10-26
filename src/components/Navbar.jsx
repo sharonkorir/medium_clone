@@ -16,6 +16,7 @@ import {
   InputGroup,
   useTheme,
   Icon,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   FaMedium,
@@ -28,9 +29,23 @@ import {
   FaRegChartBar,
 } from "react-icons/fa6";
 import { AiOutlineMediumWorkmark } from "react-icons/ai";
+import Login from "../views/auth/Login";
+import Register from "../views/auth/Register";
+import BlackButton from "./BlackButton";
 
 export default function Navbar({ user }) {
   const theme = useTheme();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isLoginModalOpen,
+    onOpen: openLoginModal,
+    onClose: closeLoginModal,
+  } = useDisclosure();
+  const {
+    isOpen: isRegisterModalOpen,
+    onOpen: openRegisterModal,
+    onClose: closeRegisterModal,
+  } = useDisclosure();
 
   const StyledMenuItem = ({ icon, text }) => {
     return (
@@ -200,6 +215,7 @@ export default function Navbar({ user }) {
                   fontWeight="normal"
                   borderColor="black"
                   _hover={{ bg: "white" }}
+                  onClick={openLoginModal}
                 >
                   Sign in
                 </Button>
@@ -214,14 +230,22 @@ export default function Navbar({ user }) {
                   bg="blackAlpha.900"
                   borderColor="white"
                   _hover={{ bg: "black" }}
+                  onClick={openRegisterModal}
                 >
                   Sign up
                 </Button>
+                {/* <BlackButton
+                  onClick={openRegisterModal}
+                  text={"Sign up"}
+                  to={"/register"}
+                /> */}
               </Stack>
             )}
           </Flex>
         </Flex>
       </Box>
+      <Login onClose={closeLoginModal} isOpen={isLoginModalOpen} />
+      <Register onClose={closeRegisterModal} isOpen={isRegisterModalOpen} />
     </>
   );
 }
