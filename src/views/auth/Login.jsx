@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuthStore } from "../../Store";
+import { useStore } from "../../Store";
 import {
   Button,
   Modal,
@@ -17,7 +17,7 @@ import {
 
 export default function Login({ isOpen, onClose }) {
   const navigate = useNavigate();
-  const { currentUser, setCurrentUser } = useAuthStore();
+  const { currentUser, setCurrentUser } = useStore();
 
   const {
     handleSubmit,
@@ -66,6 +66,7 @@ export default function Login({ isOpen, onClose }) {
                   variant="flushed"
                   borderBottomColor="black"
                   type="email"
+                  textAlign="center"
                 />
                 <FormErrorMessage>
                   {errors.email && errors.email.message}

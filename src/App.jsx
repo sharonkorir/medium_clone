@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import { lazy, Suspense } from "react";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import SharedLayout from "./components/SharedLayout";
 import Home from "./views/Home";
 import Posts from "./views/posts/Posts";
@@ -8,49 +9,62 @@ import Error from "./views/Error";
 import Login from "./views/auth/Login";
 import ProtectedRoute from "./views/ProtectedRoute";
 import Register from "./views/auth/Register";
-import { useAuthStore } from "./Store";
+import { useStore } from "./Store";
 import Profile from "./views/auth/Profile";
+
+// const Profile = (lazy) => import("./views/auth/Profile");
+
 function App() {
-  const user = useAuthStore((state) => state.currentUser);
+  const user = useStore((state) => state.currentUser);
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="profile"
-          element={
-            <ProtectedRoute user={user}>
-              <Profile user={user} />
-            </ProtectedRoute>
-          }
-        />
         <Route path="/" element={<SharedLayout user={user} />}>
           <Route index element={<Home />} />
           <Route
             path="posts"
             element={
               <ProtectedRoute user={user}>
-                <Posts user={user} />
+                <Posts />
               </ProtectedRoute>
             }
           />
           <Route
-            path="create/post"
+            path="create-post"
             element={
               <ProtectedRoute user={user}>
-                <CreatePost user={user} />
+                <CreatePost />
               </ProtectedRoute>
             }
           />
-
           <Route
-            path="post/:postId"
+            path="single-post/:postId"
             element={
               <ProtectedRoute user={user}>
-                <SinglePost user={user} />
+                <SinglePost />
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute user={user}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route element={<ProtectedRoute user={user} />}>
+            <Route path="create/post" element={<CreatePost />} />
+            <Route path="post/:postId" element={<SinglePost />} />
+             <Route path="/posts" element={<Posts />} /> 
+            <Route path="profile" element={<Profile />} />
+          </Route> */}
+          {/* <ProtectedRoute user={user}> user={user} 
+            <Route path="create/post" element={<CreatePost />} />
+            <Route path="post/:postId" element={<SinglePost />} />
+            <Route path="posts" element={<Posts />} />
+            <Route path="profile" element={<Profile />} />
+          </ProtectedRoute> */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="*" element={<Error />} />

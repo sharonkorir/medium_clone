@@ -15,12 +15,12 @@ import {
 } from "@chakra-ui/react";
 import { FaMedium } from "react-icons/fa6";
 import { AiOutlineMediumWorkmark } from "react-icons/ai";
-import { useAuthStore } from "../../Store";
+import { useStore } from "../../Store";
 
 export default function Profile() {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { currentUser, setCurrentUser } = useAuthStore();
+  const { currentUser, setCurrentUser } = useStore();
   const {
     handleSubmit,
     register,

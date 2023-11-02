@@ -13,11 +13,11 @@ import {
   FormErrorMessage,
   FormControl,
 } from "@chakra-ui/react";
-import { useAuthStore } from "../../Store";
+import { useStore } from "../../Store";
 
 export default function Register({ isOpen, onClose }) {
   const navigate = useNavigate();
-  const { currentUser, setCurrentUser } = useAuthStore();
+  const { currentUser, setCurrentUser } = useStore();
 
   const {
     handleSubmit,
@@ -63,6 +63,7 @@ export default function Register({ isOpen, onClose }) {
                   })}
                   variant="flushed"
                   borderBottomColor="black"
+                  textAlign="center"
                 />
                 <FormErrorMessage>
                   {errors.email && errors.email.message}
@@ -79,7 +80,6 @@ export default function Register({ isOpen, onClose }) {
                 _hover={{ bg: "black" }}
                 mt={10}
                 width="226px"
-                //   onClick={openRegisterModal}
               >
                 Continue
               </Button>
