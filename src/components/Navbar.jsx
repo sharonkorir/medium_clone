@@ -1,4 +1,4 @@
-import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -31,11 +31,12 @@ import {
 import { AiOutlineMediumWorkmark } from "react-icons/ai";
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
-import { useAuthStore } from "../Store";
+import { useStore } from "../Store";
 
 export default function Navbar({ user }) {
   const theme = useTheme();
-  const { logout } = useAuthStore();
+  const navigate = useNavigate();
+  const { logout } = useStore();
   const {
     isOpen: isLoginModalOpen,
     onOpen: openLoginModal,
@@ -63,10 +64,18 @@ export default function Navbar({ user }) {
     );
   };
 
+  // const handleStoriesClick = () => {
+  //   return (navigate = "/posts");
+  // };
+
   const menuItemsList = [
     { id: 1, text: "Profile", icon: <FaRegUser size="16px" /> },
     { id: 2, text: "Library", icon: <FaRegBookmark size="16px" /> },
-    { id: 3, text: "Stories", icon: <FaRegRectangleList size="16px" /> },
+    {
+      id: 3,
+      text: "Stories",
+      icon: <FaRegRectangleList size="16px" />,
+    },
     { id: 4, text: "Stats", icon: <FaRegChartBar size="16px" /> },
     { id: 5, divider: true },
     { id: 6, text: "Settings" },
