@@ -9,7 +9,7 @@ export default function EditorsPick() {
     <Box>
       {posts?.map((post) => {
         return (
-          <Box key={post.id} pb={4}>
+          <Box key={post.title} pb={4}>
             <Flex alignItems="center" gap={2}>
               <Avatar size="xs" pb={2} />
               <Text fontSize="xs">{post.author}</Text>
@@ -17,7 +17,7 @@ export default function EditorsPick() {
             <Heading
               as={ReactRouterLink}
               size="sm"
-              to={`/single-post/${post.id}`}
+              to={`/single-post/${post.title}`}
             >
               {post.title}
             </Heading>
