@@ -5,31 +5,22 @@ import {
   Divider,
   Flex,
   Heading,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Stack,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Text,
   useTheme,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import EditorsPick from "../../components/EditorsPick";
-import { useStore } from "../../Store";
-import { GoShare } from "react-icons/go";
-import { FiMoreHorizontal } from "react-icons/fi";
+import Drafts from "../../components/postsTabs/Drafts";
+import Published from "../../components/postsTabs/Published";
 
 export default function Posts() {
-  // console.log("mm");
   const theme = useTheme();
-  const posts = useStore((state) => state.posts);
-  const deletePost = useStore((state) => state.deletePost);
-  console.log("posts:", posts);
+
   return (
     <Box>
       <Flex gap={4}>
@@ -71,47 +62,13 @@ export default function Posts() {
               <Tab>Responses</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel>drafts</TabPanel>
               <TabPanel>
-                {posts.map((post) => {
-                  return (
-                    <Box key={post.title}>
-                      <Heading size="sm" pb={2}>
-                        {post.title}
-                      </Heading>
-                      <Text noOfLines={2}>{post.content}</Text>
-                      <Flex
-                        gap={2}
-                        alignItems="center"
-                        color={theme.colors.text.grey}
-                      >
-                        <Text fontSize="sm">Published about 1 hour ago </Text>
-                        <Text>.</Text>
-                        <Text fontSize="sm">1 min read</Text>
-                        <GoShare />
-                        <Menu isLazy>
-                          <MenuButton>
-                            <FiMoreHorizontal />
-                          </MenuButton>
-                          <MenuList>
-                            {/* MenuItems are not rendered unless Menu is open */}
-                            <MenuItem>Edit story</MenuItem>
-                            <MenuItem>View stats</MenuItem>
-                            <MenuItem
-                              color="tomato"
-                              // as={Button}
-                              onClick={() => deletePost(post.title)}
-                            >
-                              Delete story
-                            </MenuItem>
-                          </MenuList>
-                        </Menu>
-                      </Flex>
-                    </Box>
-                  );
-                })}
+                <Drafts />
               </TabPanel>
-              <TabPanel>responses</TabPanel>
+              <TabPanel>
+                <Published />
+              </TabPanel>
+              <TabPanel></TabPanel>
             </TabPanels>
           </Tabs>
         </Stack>
