@@ -11,7 +11,7 @@ export default function EditorsPick() {
         return (
           <Box key={post.title} pb={4}>
             <Flex alignItems="center" gap={2}>
-              <Avatar size="xs" pb={2} />
+              <Avatar size="xs" />
               <Text fontSize="xs">{post.author}</Text>
             </Flex>
             <Heading
