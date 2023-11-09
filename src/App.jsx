@@ -11,11 +11,13 @@ import ProtectedRoute from "./views/ProtectedRoute";
 import Register from "./views/auth/Register";
 import { useStore } from "./Store";
 import Profile from "./views/auth/Profile";
+import EditPost from "./views/posts/EditPost";
 
 // const Profile = (lazy) => import("./views/auth/Profile");
 
 function App() {
   const user = useStore((state) => state.currentUser);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -55,6 +57,14 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="edit-post"
+          element={
+            <ProtectedRoute user={user}>
+              <EditPost />
             </ProtectedRoute>
           }
         />

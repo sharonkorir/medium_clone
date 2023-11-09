@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, Link as ReactRouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useStore } from "../../Store";
 import {
@@ -13,11 +14,17 @@ import {
   Input,
   FormErrorMessage,
   FormControl,
+  useDisclosure,
 } from "@chakra-ui/react";
 
-export default function Login({ isOpen, onClose }) {
+export default function Login() {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useStore();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // open modal by default
+  useEffect(() => {
+    onOpen();
+  }, [onOpen]);
 
   const {
     handleSubmit,
@@ -34,6 +41,8 @@ export default function Login({ isOpen, onClose }) {
 
   return (
     <>
+      {/* <Button onClick={onOpen}>Open Modal</Button> */}
+      You need to be logged in to perform this action
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
         <ModalOverlay />
         <ModalContent

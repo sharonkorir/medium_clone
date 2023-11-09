@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -12,12 +13,18 @@ import {
   Input,
   FormErrorMessage,
   FormControl,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useStore } from "../../Store";
 
-export default function Register({ isOpen, onClose }) {
+export default function Register() {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useStore();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    onOpen();
+  }, [onOpen]);
 
   const {
     handleSubmit,

@@ -37,16 +37,14 @@ export default function Navbar({ user }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const { logout } = useStore();
-  const {
-    isOpen: isLoginModalOpen,
-    onOpen: openLoginModal,
-    onClose: closeLoginModal,
-  } = useDisclosure();
-  const {
-    isOpen: isRegisterModalOpen,
-    onOpen: openRegisterModal,
-    onClose: closeRegisterModal,
-  } = useDisclosure();
+
+  const profileNavigate = () => {
+    navigate("/profile");
+  };
+
+  const storiesNavigate = () => {
+    navigate("/posts");
+  };
 
   const StyledMenuItem = ({ icon, text, onClick }) => {
     return (
@@ -64,17 +62,19 @@ export default function Navbar({ user }) {
     );
   };
 
-  // const handleStoriesClick = () => {
-  //   return (navigate = "/posts");
-  // };
-
   const menuItemsList = [
-    { id: 1, text: "Profile", icon: <FaRegUser size="16px" /> },
+    {
+      id: 1,
+      text: "Profile",
+      icon: <FaRegUser size="16px" />,
+      onClick: profileNavigate,
+    },
     { id: 2, text: "Library", icon: <FaRegBookmark size="16px" /> },
     {
       id: 3,
       text: "Stories",
       icon: <FaRegRectangleList size="16px" />,
+      onClick: storiesNavigate,
     },
     { id: 4, text: "Stats", icon: <FaRegChartBar size="16px" /> },
     { id: 5, divider: true },
@@ -107,7 +107,6 @@ export default function Navbar({ user }) {
           mx={6}
         >
           <Flex alignItems="center">
-            {" "}
             <ReactRouterLink to="/">
               <Icon
                 as={FaMedium}
@@ -137,12 +136,15 @@ export default function Navbar({ user }) {
                 />
               </InputGroup>
             ) : (
-              <Icon
-                as={AiOutlineMediumWorkmark}
-                boxSize="7.5em"
-                _hover={{ cursor: "pointer" }}
-                mx={4}
-              />
+              <ReactRouterLink to="/">
+                {" "}
+                <Icon
+                  as={AiOutlineMediumWorkmark}
+                  boxSize="7.5em"
+                  _hover={{ cursor: "pointer" }}
+                  mx={4}
+                />
+              </ReactRouterLink>
             )}
           </Flex>
 
@@ -153,6 +155,8 @@ export default function Navbar({ user }) {
                   gap={2}
                   alignItems="center"
                   _hover={{ cursor: "pointer", color: "black" }}
+                  as={ReactRouterLink}
+                  to="/create-post"
                 >
                   <Icon
                     aria-label="write post"
@@ -195,16 +199,19 @@ export default function Navbar({ user }) {
                       icon={<FaRegPenToSquare size="16px" />}
                       display={{ base: "flex", sm: "none" }}
                       mb="4px"
+                      as={ReactRouterLink}
+                      to="/create-post"
                     >
                       Write
                     </MenuItem>
                     {menuItemsList.map((item) => {
                       if (item.divider) {
                         return <MenuDivider key={item.id} />;
-                      } else if (item.onClick) {
+                      } else if (item.onClick || item.icon) {
                         return (
                           <StyledMenuItem
                             key={item.id}
+                            icon={item.icon}
                             text={item.text}
                             onClick={item.onClick}
                           />
@@ -233,7 +240,6 @@ export default function Navbar({ user }) {
                   fontWeight="normal"
                   borderColor="black"
                   _hover={{ bg: "white" }}
-                  onClick={openLoginModal}
                 >
                   Sign in
                 </Button>
@@ -248,7 +254,6 @@ export default function Navbar({ user }) {
                   bg="blackAlpha.900"
                   borderColor="white"
                   _hover={{ bg: "black" }}
-                  onClick={openRegisterModal}
                 >
                   Sign up
                 </Button>
@@ -257,8 +262,6 @@ export default function Navbar({ user }) {
           </Flex>
         </Flex>
       </Box>
-      <Login onClose={closeLoginModal} isOpen={isLoginModalOpen} />
-      <Register onClose={closeRegisterModal} isOpen={isRegisterModalOpen} />
     </>
   );
 }
