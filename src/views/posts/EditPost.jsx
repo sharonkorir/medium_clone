@@ -1,5 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import {
+  Link as ReactRouterLink,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import {
   FormErrorMessage,
   FormControl,
@@ -9,7 +13,6 @@ import {
   useTheme,
   Flex,
   Icon,
-  Text,
   Avatar,
   Textarea,
   InputGroup,
@@ -20,22 +23,26 @@ import { useStore } from "../../Store";
 import { FaMedium } from "react-icons/fa6";
 import { PiDotsThree, PiBell, PiPlusCircleThin } from "react-icons/pi";
 
-export default function CreatePost() {
+export default function EditPost() {
   const theme = useTheme();
   const navigate = useNavigate();
-  const addPost = useStore((store) => store.addPost);
+  const editPost = useStore((store) => store.editPost);
   const user = useStore((state) => state.currentUser);
+  const location = useLocation();
+  const { fromEdit } = location.state;
+  let post = fromEdit.post;
 
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: { title: "", content: "" },
+    defaultValues: { title: post.title, content: post.content },
   });
 
   function onSubmit(values) {
-    addPost(values.title, values.content);
+    editPost(post.title, values);
+
     navigate("/posts");
   }
 
@@ -57,24 +64,36 @@ export default function CreatePost() {
             />
           </ReactRouterLink>
 
-          <Text fontSize="xs">Drafts in {user.email}</Text>
+          <Heading size="md">{user.email}</Heading>
 
           {/* <Text fontSize="xs">Drafts in {user.email}</Text> */}
         </Flex>
         <Flex alignItems="center" gap={6}>
-          <Button
-            type="submit"
-            variant="solid"
-            color="white"
-            borderRadius="20px"
-            fontWeight="normal"
-            bg="#1a8917"
-            borderColor="white"
-            _hover={{ bg: "#187715" }}
-            size="sm"
-          >
-            Publish
-          </Button>
+          <Flex gap={4} alignItems="center">
+            <Button
+              variant="link"
+              as={ReactRouterLink}
+              to={`/single-post/${post.title}`}
+              state={{ fromPublished: { post } }}
+              color={theme.colors.text.grey}
+              fontSize="sm"
+            >
+              Back to story
+            </Button>
+            <Button
+              type="submit"
+              variant="solid"
+              color="white"
+              borderRadius="20px"
+              fontWeight="normal"
+              bg="#1a8917"
+              borderColor="white"
+              _hover={{ bg: "#187715" }}
+              size="sm"
+            >
+              Save and publish
+            </Button>
+          </Flex>
 
           <Icon as={PiDotsThree} boxSize={6} color={theme.colors.text.grey} />
           <Icon as={PiBell} boxSize={6} color={theme.colors.text.grey} />

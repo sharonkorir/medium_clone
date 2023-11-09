@@ -59,7 +59,7 @@ export default function Published() {
                   {/* MenuItems are not rendered unless Menu is open */}
                   <MenuItem
                     as={ReactRouterLink}
-                    to="/create-post"
+                    to="/edit-post"
                     state={{ fromEdit: { post } }}
                   >
                     Edit story
