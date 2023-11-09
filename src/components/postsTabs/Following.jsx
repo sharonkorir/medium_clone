@@ -48,6 +48,7 @@ export default function Following() {
                 to={`/single-post/${post.title}`}
                 size="md"
                 fontWeight="semibold"
+                state={{ fromPublished: { post } }}
               >
                 {post.title}
               </Heading>

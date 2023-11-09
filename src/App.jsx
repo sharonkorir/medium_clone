@@ -29,14 +29,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="create-post"
-            element={
-              <ProtectedRoute user={user}>
-                <CreatePost />
-              </ProtectedRoute>
-            }
-          />
+
           <Route
             path="single-post/:postId"
             element={
@@ -53,22 +46,18 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route element={<ProtectedRoute user={user} />}>
-            <Route path="create/post" element={<CreatePost />} />
-            <Route path="post/:postId" element={<SinglePost />} />
-             <Route path="/posts" element={<Posts />} /> 
-            <Route path="profile" element={<Profile />} />
-          </Route> */}
-          {/* <ProtectedRoute user={user}> user={user} 
-            <Route path="create/post" element={<CreatePost />} />
-            <Route path="post/:postId" element={<SinglePost />} />
-            <Route path="posts" element={<Posts />} />
-            <Route path="profile" element={<Profile />} />
-          </ProtectedRoute> */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="*" element={<Error />} />
         </Route>
+        <Route
+          path="create-post"
+          element={
+            <ProtectedRoute user={user}>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

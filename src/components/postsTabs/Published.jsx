@@ -12,22 +12,37 @@ import {
   Divider,
   Flex,
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
+import {
+  Link as ReactRouterLink,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { useStore } from "../../Store";
 
 export default function Published() {
   const theme = useTheme();
   const posts = useStore((state) => state.posts);
   const deletePost = useStore((state) => state.deletePost);
+  const navigate = useNavigate();
 
   return (
     <>
       {posts.map((post) => {
         return (
           <Box key={post.title}>
-            <Heading size="sm" pb={2} pt={4}>
-              {post.title}
-            </Heading>
+            <Box pt={4} pb={2}>
+              {" "}
+              <Heading
+                size="sm"
+                as={ReactRouterLink}
+                to={`/single-post/${post.title}`}
+                fontWeight="semibold"
+                state={{ fromPublished: { post } }}
+              >
+                {post.title}
+              </Heading>
+            </Box>
+
             <Text noOfLines={2} color={theme.colors.text.grey}>
               {post.content}
             </Text>
@@ -42,7 +57,11 @@ export default function Published() {
                 </MenuButton>
                 <MenuList>
                   {/* MenuItems are not rendered unless Menu is open */}
-                  <MenuItem as={ReactRouterLink} to="/create-post">
+                  <MenuItem
+                    as={ReactRouterLink}
+                    to="/create-post"
+                    state={{ fromEdit: { post } }}
+                  >
                     Edit story
                   </MenuItem>
                   <MenuItem>View stats</MenuItem>

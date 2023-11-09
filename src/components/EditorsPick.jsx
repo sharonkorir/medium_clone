@@ -18,6 +18,7 @@ export default function EditorsPick() {
               as={ReactRouterLink}
               size="sm"
               to={`/single-post/${post.title}`}
+              state={{ fromPublished: { post } }}
             >
               {post.title}
             </Heading>
