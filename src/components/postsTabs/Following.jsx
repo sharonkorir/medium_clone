@@ -99,7 +99,7 @@ export default function Following() {
 
               <Box width="20%">
                 <Image
-                  boxSize="120px"
+                  boxSize={{ base: "80px", md: "100px", lg: "120px" }}
                   objectFit="cover"
                   src="https://bit.ly/dan-abramov"
                   alt="Dan Abramov"

@@ -12,18 +12,13 @@ import {
   Divider,
   Flex,
 } from "@chakra-ui/react";
-import {
-  Link as ReactRouterLink,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { useStore } from "../../Store";
 
 export default function Published() {
   const theme = useTheme();
   const posts = useStore((state) => state.posts);
   const deletePost = useStore((state) => state.deletePost);
-  const navigate = useNavigate();
 
   return (
     <>

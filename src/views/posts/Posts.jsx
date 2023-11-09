@@ -24,7 +24,11 @@ export default function Posts() {
   return (
     <Box>
       <Flex gap={4}>
-        <Stack width="70%" px={24} py={16}>
+        <Stack
+          width={{ sm: "100%", lg: "70%" }}
+          px={{ sm: 2, lg: 24 }}
+          py={{ sm: 6, lg: 16 }}
+        >
           <Flex justifyContent="space-between" alignItems="center" mb={6}>
             <Heading size="xl">Your stories</Heading>
             <Flex gap={2}>
@@ -73,9 +77,17 @@ export default function Posts() {
           </Tabs>
         </Stack>
         <Center height="100vh">
-          <Divider orientation="vertical" color={theme.colors.border.grey} />
+          <Divider
+            orientation="vertical"
+            color={theme.colors.border.grey}
+            display={{ sm: "none", lg: "block" }}
+          />
         </Center>
-        <Stack width="30%" p={8}>
+        <Stack
+          width={{ sm: "0%", lg: "30%" }}
+          p={8}
+          display={{ sm: "none", lg: "block" }}
+        >
           <Heading size="sm" fontWeight="medium" pb={2}>
             Staff Picks
           </Heading>

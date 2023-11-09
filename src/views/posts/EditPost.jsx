@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useStore } from "../../Store";
 import { FaMedium } from "react-icons/fa6";
-import { PiDotsThree, PiBell, PiPlusCircleThin } from "react-icons/pi";
+import { PiDotsThree, PiBell } from "react-icons/pi";
 
 export default function EditPost() {
   const theme = useTheme();
@@ -40,11 +40,12 @@ export default function EditPost() {
     defaultValues: { title: post.title, content: post.content },
   });
 
-  function onSubmit(values) {
-    editPost(post.title, values);
-
-    navigate("/posts");
-  }
+  const onSubmit = async (values) => {
+    await editPost(post.title, values);
+    navigate(`/single-post/${post.title}`, {
+      state: { fromPublished: { post: { ...post, ...values } } },
+    });
+  };
 
   return (
     <Box as="form" onSubmit={handleSubmit(onSubmit)}>
@@ -52,8 +53,8 @@ export default function EditPost() {
         h={user ? 14 : 20}
         alignItems="center"
         justifyContent="space-between"
-        px="160px"
-        py={8}
+        px={{ sm: "20px", lg: "160px" }}
+        py={{ sm: 2, lg: 8 }}
       >
         <Flex alignItems="center" gap={2}>
           <ReactRouterLink to="/">
@@ -65,10 +66,8 @@ export default function EditPost() {
           </ReactRouterLink>
 
           <Heading size="md">{user.email}</Heading>
-
-          {/* <Text fontSize="xs">Drafts in {user.email}</Text> */}
         </Flex>
-        <Flex alignItems="center" gap={6}>
+        <Flex alignItems="center" gap={{ sm: 2, lg: 6 }}>
           <Flex gap={4} alignItems="center">
             <Button
               variant="link"
@@ -89,27 +88,31 @@ export default function EditPost() {
               bg="#1a8917"
               borderColor="white"
               _hover={{ bg: "#187715" }}
-              size="sm"
+              size={{ sm: "xs", lg: "sm" }}
             >
               Save and publish
             </Button>
           </Flex>
 
-          <Icon as={PiDotsThree} boxSize={6} color={theme.colors.text.grey} />
-          <Icon as={PiBell} boxSize={6} color={theme.colors.text.grey} />
-          <Avatar size="sm" />
+          <Icon
+            as={PiDotsThree}
+            boxSize={6}
+            color={theme.colors.text.grey}
+            display={{ sm: "none", md: "block" }}
+          />
+          <Icon
+            as={PiBell}
+            boxSize={6}
+            color={theme.colors.text.grey}
+            display={{ sm: "none", md: "block" }}
+          />
+          <Avatar size="sm" display={{ sm: "none", md: "block" }} />
         </Flex>
       </Flex>
 
-      <Box pt={10} px="300px">
+      <Box pt={{ sm: 6, lg: 10 }} px={{ sm: "20px", lg: "300px" }}>
         <FormControl isInvalid={errors.title}>
           <InputGroup alignItems="center" gap={6}>
-            <Icon
-              as={PiPlusCircleThin}
-              boxSize={10}
-              visibility="hidden"
-              _groupFocusWithin={{ visibility: "visible" }}
-            />
             <Input
               variant="unstyled"
               id="title"
@@ -132,12 +135,6 @@ export default function EditPost() {
         </FormControl>
         <FormControl isInvalid={errors.content}>
           <InputGroup gap={6}>
-            <Icon
-              as={PiPlusCircleThin}
-              boxSize={10}
-              visibility="hidden"
-              _groupFocusWithin={{ visibility: "visible" }}
-            />
             <Textarea
               rows="12"
               variant="unstyled"

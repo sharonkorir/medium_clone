@@ -13,8 +13,6 @@ import {
   Avatar,
   Textarea,
   InputGroup,
-  Heading,
-  Link,
 } from "@chakra-ui/react";
 import { useStore } from "../../Store";
 import { FaMedium } from "react-icons/fa6";
@@ -45,8 +43,8 @@ export default function CreatePost() {
         h={user ? 14 : 20}
         alignItems="center"
         justifyContent="space-between"
-        px="160px"
-        py={8}
+        px={{ sm: "10px", lg: "160px" }}
+        py={{ sm: 2, lg: 8 }}
       >
         <Flex alignItems="center" gap={2}>
           <ReactRouterLink to="/">
@@ -58,10 +56,8 @@ export default function CreatePost() {
           </ReactRouterLink>
 
           <Text fontSize="xs">Drafts in {user.email}</Text>
-
-          {/* <Text fontSize="xs">Drafts in {user.email}</Text> */}
         </Flex>
-        <Flex alignItems="center" gap={6}>
+        <Flex alignItems="center" gap={{ sm: 2, lg: 6 }}>
           <Button
             type="submit"
             variant="solid"
@@ -71,7 +67,7 @@ export default function CreatePost() {
             bg="#1a8917"
             borderColor="white"
             _hover={{ bg: "#187715" }}
-            size="sm"
+            size={{ sm: "xs", lg: "sm" }}
           >
             Publish
           </Button>
@@ -82,7 +78,7 @@ export default function CreatePost() {
         </Flex>
       </Flex>
 
-      <Box pt={10} px="300px">
+      <Box pt={{ sm: 6, lg: 10 }} px={{ sm: "20px", lg: "300px" }}>
         <FormControl isInvalid={errors.title}>
           <InputGroup alignItems="center" gap={6}>
             <Icon
@@ -90,8 +86,10 @@ export default function CreatePost() {
               boxSize={10}
               visibility="hidden"
               _groupFocusWithin={{ visibility: "visible" }}
+              display={{ sm: "none", lg: "block" }}
             />
             <Input
+              required
               variant="unstyled"
               id="title"
               placeholder="Title"
@@ -118,6 +116,7 @@ export default function CreatePost() {
               boxSize={10}
               visibility="hidden"
               _groupFocusWithin={{ visibility: "visible" }}
+              display={{ sm: "none", lg: "block" }}
             />
             <Textarea
               rows="12"

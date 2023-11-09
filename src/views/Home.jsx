@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <Box>
       <Flex gap={4}>
-        <Stack width="68%" px={24} py={4}>
+        <Stack width={{ sm: "100%", lg: "68%" }} px={{ sm: 2, lg: 24 }} py={4}>
           <Tabs variant="line" isLazy colorScheme="blackAlpha" defaultIndex={1}>
             <TabList>
               <Tab>+</Tab>
@@ -39,9 +39,17 @@ export default function Home() {
           </Tabs>
         </Stack>
         <Center height="100vh">
-          <Divider orientation="vertical" color={theme.colors.border.grey} />
+          <Divider
+            orientation="vertical"
+            color={theme.colors.border.grey}
+            display={{ sm: "none", lg: "block" }}
+          />
         </Center>
-        <Stack width="32%" p={8}>
+        <Stack
+          width={{ sm: "0%", lg: "32%" }}
+          p={8}
+          display={{ sm: "none", lg: "block" }}
+        >
           <Heading size="sm" fontWeight="medium" pb={2}>
             Staff Picks
           </Heading>

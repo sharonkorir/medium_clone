@@ -5,7 +5,6 @@ export default function Drafts() {
   return (
     <Center height="50vh">
       <VStack>
-        {" "}
         <Text fontSize="sm">You have no drafts</Text>
         <Text>
           <Link
