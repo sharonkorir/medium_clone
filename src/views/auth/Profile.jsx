@@ -13,9 +13,9 @@ import {
   FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/react";
-import { FaMedium } from "react-icons/fa6";
-import { AiOutlineMediumWorkmark } from "react-icons/ai";
+
 import { useStore } from "../../Store";
+import { MediumIcon } from "../../components/icons/MediumIcon";
 
 export default function Profile() {
   const theme = useTheme();
@@ -45,17 +45,11 @@ export default function Profile() {
             {" "}
             <ReactRouterLink to="/">
               <Icon
-                as={FaMedium}
+                as={MediumIcon}
                 boxSize="2.75em"
                 _hover={{ cursor: "pointer" }}
               />
             </ReactRouterLink>
-            <Icon
-              as={AiOutlineMediumWorkmark}
-              boxSize="7em"
-              _hover={{ cursor: "pointer" }}
-              mx={2}
-            />
           </Flex>
         </Flex>
         <Stack

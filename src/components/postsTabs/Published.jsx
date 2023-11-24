@@ -1,5 +1,3 @@
-import { GoShare } from "react-icons/go";
-import { FiMoreHorizontal } from "react-icons/fi";
 import {
   useTheme,
   Box,
@@ -14,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { useStore } from "../../Store";
+import { ThreeDotsIcon } from "../icons/ThreeDotsIcon";
+import { BoxArrowUp } from "../icons/BoxArrowUp";
 
 export default function Published() {
   const theme = useTheme();
@@ -45,10 +45,10 @@ export default function Published() {
               <Text fontSize="sm">Published about 1 hour ago </Text>
               <Text>.</Text>
               <Text fontSize="sm">1 min read</Text>
-              <GoShare />
+              <BoxArrowUp />
               <Menu isLazy>
                 <MenuButton>
-                  <FiMoreHorizontal />
+                  <ThreeDotsIcon />
                 </MenuButton>
                 <MenuList>
                   {/* MenuItems are not rendered unless Menu is open */}

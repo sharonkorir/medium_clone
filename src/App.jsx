@@ -40,18 +40,19 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute user={user}>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="*" element={<Error />} />
         </Route>
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute user={user}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="create-post"
           element={

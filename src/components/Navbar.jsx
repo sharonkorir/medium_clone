@@ -16,22 +16,16 @@ import {
   InputGroup,
   useTheme,
   Icon,
-  useDisclosure,
 } from "@chakra-ui/react";
-import {
-  FaMedium,
-  FaMagnifyingGlass,
-  FaRegBell,
-  FaRegPenToSquare,
-  FaRegBookmark,
-  FaRegUser,
-  FaRegRectangleList,
-  FaRegChartBar,
-} from "react-icons/fa6";
-import { AiOutlineMediumWorkmark } from "react-icons/ai";
-import Login from "../views/auth/Login";
-import Register from "../views/auth/Register";
 import { useStore } from "../Store";
+import { MediumIcon } from "./icons/MediumIcon";
+import { PencilSquareIcon } from "./icons/PencilSquareIcon";
+import { SearchIcon } from "./icons/SearchIcon";
+import { NotificationIcon } from "./icons/NotificationIcon";
+import { PersonIcon } from "./icons/PersonIcon";
+import { BookmarksIcon } from "./icons/BookmarksIcon";
+import { FileTextIcon } from "./icons/FileTextIcon";
+import { BarChartIcon } from "./icons/BarChartIcon";
 
 export default function Navbar({ user }) {
   const theme = useTheme();
@@ -66,17 +60,17 @@ export default function Navbar({ user }) {
     {
       id: 1,
       text: "Profile",
-      icon: <FaRegUser size="16px" />,
+      icon: <PersonIcon size="16px" />,
       onClick: profileNavigate,
     },
-    { id: 2, text: "Library", icon: <FaRegBookmark size="16px" /> },
+    { id: 2, text: "Library", icon: <BookmarksIcon size="16px" /> },
     {
       id: 3,
       text: "Stories",
-      icon: <FaRegRectangleList size="16px" />,
+      icon: <FileTextIcon size="16px" />,
       onClick: storiesNavigate,
     },
-    { id: 4, text: "Stats", icon: <FaRegChartBar size="16px" /> },
+    { id: 4, text: "Stats", icon: <BarChartIcon size="16px" /> },
     { id: 5, divider: true },
     { id: 6, text: "Settings" },
     { id: 7, text: "Refine recommendations" },
@@ -108,44 +102,29 @@ export default function Navbar({ user }) {
         >
           <Flex alignItems="center">
             <ReactRouterLink to="/">
-              <Icon
-                as={FaMedium}
-                boxSize="2.75em"
-                _hover={{ cursor: "pointer" }}
-              />
+              <Icon as={MediumIcon} _hover={{ cursor: "pointer" }} />
             </ReactRouterLink>
-            {user ? (
-              <InputGroup
-                mx={4}
-                display={{ base: "none", sm: "flex" }}
-                color={theme.colors.text.grey}
-              >
-                <InputLeftElement fontSize="1.2em" px="28px">
-                  <Icon as={FaMagnifyingGlass} focusable="true" />
-                </InputLeftElement>
-                <Input
-                  placeholder="Search"
-                  borderRadius={20}
-                  bgColor={theme.colors.bg.grey}
-                  border="none"
-                  _placeholder={{
-                    color: theme.colors.text.grey,
-                    fontSize: "sm",
-                    paddingLeft: "16px",
-                  }}
-                />
-              </InputGroup>
-            ) : (
-              <ReactRouterLink to="/">
-                {" "}
+
+            <InputGroup mx={4} display={{ base: "none", sm: "flex" }}>
+              <InputLeftElement>
                 <Icon
-                  as={AiOutlineMediumWorkmark}
-                  boxSize="7.5em"
-                  _hover={{ cursor: "pointer" }}
-                  mx={4}
+                  as={SearchIcon}
+                  focusable="true"
+                  color={theme.colors.text.grey}
                 />
-              </ReactRouterLink>
-            )}
+              </InputLeftElement>
+              <Input
+                placeholder="Search"
+                borderRadius={20}
+                bgColor={theme.colors.bg.grey}
+                border="none"
+                _placeholder={{
+                  color: theme.colors.text.grey,
+                  fontSize: "sm",
+                  paddingLeft: "16px",
+                }}
+              />
+            </InputGroup>
           </Flex>
 
           <Flex alignItems="center" color={theme.colors.text.grey}>
@@ -160,7 +139,7 @@ export default function Navbar({ user }) {
                 >
                   <Icon
                     aria-label="write post"
-                    as={FaRegPenToSquare}
+                    as={PencilSquareIcon}
                     boxSize={5}
                   />
                   <Text fontSize="sm">Write</Text>
@@ -168,7 +147,7 @@ export default function Navbar({ user }) {
                 <Icon
                   bg="white"
                   aria-label="search"
-                  as={FaMagnifyingGlass}
+                  as={SearchIcon}
                   display={{ base: "flex", md: "none" }}
                   boxSize={5}
                   _hover={{ cursor: "pointer", color: "black" }}
@@ -176,7 +155,7 @@ export default function Navbar({ user }) {
 
                 <Icon
                   aria-label="notifications"
-                  as={FaRegBell}
+                  as={NotificationIcon}
                   display={{ base: "none", md: "flex" }}
                   boxSize={5}
                   _hover={{ cursor: "pointer", color: "black" }}
@@ -196,7 +175,7 @@ export default function Navbar({ user }) {
                   </MenuButton>
                   <MenuList alignItems="center" px="16px">
                     <MenuItem
-                      icon={<FaRegPenToSquare size="16px" />}
+                      icon={<PencilSquareIcon size="16px" />}
                       display={{ base: "flex", sm: "none" }}
                       mb="4px"
                       as={ReactRouterLink}

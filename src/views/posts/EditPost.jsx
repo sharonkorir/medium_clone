@@ -20,8 +20,9 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { useStore } from "../../Store";
-import { FaMedium } from "react-icons/fa6";
-import { PiDotsThree, PiBell } from "react-icons/pi";
+import { MediumIcon } from "../../components/icons/MediumIcon";
+import { ThreeDotsIcon } from "../../components/icons/ThreeDotsIcon";
+import { NotificationIcon } from "../../components/icons/NotificationIcon";
 
 export default function EditPost() {
   const theme = useTheme();
@@ -59,7 +60,7 @@ export default function EditPost() {
         <Flex alignItems="center" gap={2}>
           <ReactRouterLink to="/">
             <Icon
-              as={FaMedium}
+              as={MediumIcon}
               boxSize="2.75em"
               _hover={{ cursor: "pointer" }}
             />
@@ -95,13 +96,13 @@ export default function EditPost() {
           </Flex>
 
           <Icon
-            as={PiDotsThree}
+            as={ThreeDotsIcon}
             boxSize={6}
             color={theme.colors.text.grey}
             display={{ sm: "none", md: "block" }}
           />
           <Icon
-            as={PiBell}
+            as={NotificationIcon}
             boxSize={6}
             color={theme.colors.text.grey}
             display={{ sm: "none", md: "block" }}

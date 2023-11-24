@@ -15,8 +15,10 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 import { useStore } from "../../Store";
-import { FaMedium } from "react-icons/fa6";
-import { PiDotsThree, PiBell, PiPlusCircleThin } from "react-icons/pi";
+import { MediumIcon } from "../../components/icons/MediumIcon";
+import { ThreeDotsIcon } from "../../components/icons/ThreeDotsIcon";
+import { NotificationIcon } from "../../components/icons/NotificationIcon";
+import { PlusCircleIcon } from "../../components/icons/PlusCircleIcon";
 
 export default function CreatePost() {
   const theme = useTheme();
@@ -49,7 +51,7 @@ export default function CreatePost() {
         <Flex alignItems="center" gap={2}>
           <ReactRouterLink to="/">
             <Icon
-              as={FaMedium}
+              as={MediumIcon}
               boxSize="2.75em"
               _hover={{ cursor: "pointer" }}
             />
@@ -72,8 +74,12 @@ export default function CreatePost() {
             Publish
           </Button>
 
-          <Icon as={PiDotsThree} boxSize={6} color={theme.colors.text.grey} />
-          <Icon as={PiBell} boxSize={6} color={theme.colors.text.grey} />
+          <Icon as={ThreeDotsIcon} boxSize={6} color={theme.colors.text.grey} />
+          <Icon
+            as={NotificationIcon}
+            boxSize={6}
+            color={theme.colors.text.grey}
+          />
           <Avatar size="sm" />
         </Flex>
       </Flex>
@@ -82,7 +88,7 @@ export default function CreatePost() {
         <FormControl isInvalid={errors.title}>
           <InputGroup alignItems="center" gap={6}>
             <Icon
-              as={PiPlusCircleThin}
+              as={PlusCircleIcon}
               boxSize={10}
               visibility="hidden"
               _groupFocusWithin={{ visibility: "visible" }}
@@ -112,7 +118,7 @@ export default function CreatePost() {
         <FormControl isInvalid={errors.content}>
           <InputGroup gap={6}>
             <Icon
-              as={PiPlusCircleThin}
+              as={PlusCircleIcon}
               boxSize={10}
               visibility="hidden"
               _groupFocusWithin={{ visibility: "visible" }}

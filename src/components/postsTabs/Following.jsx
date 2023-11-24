@@ -1,5 +1,3 @@
-import { IoIosRemoveCircleOutline } from "react-icons/io";
-import { FiMoreHorizontal } from "react-icons/fi";
 import {
   useTheme,
   Box,
@@ -19,7 +17,9 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { useStore } from "../../Store";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
+import { ThreeDotsIcon } from "../icons/ThreeDotsIcon";
+import { DashCircleIcon } from "../icons/DashCircleIcon";
+import { BookmarkPlusIcon } from "../icons/BookmarkPlusIcon";
 
 export default function Following() {
   const theme = useTheme();
@@ -69,19 +69,19 @@ export default function Following() {
                   </Flex>
                   <Flex gap={4} alignItems="center">
                     <Icon
-                      as={MdOutlineBookmarkAdd}
+                      as={BookmarkPlusIcon}
                       boxSize={6}
                       color={theme.colors.text.grey}
                     />
                     <Icon
-                      as={IoIosRemoveCircleOutline}
+                      as={DashCircleIcon}
                       boxSize={6}
                       color={theme.colors.text.grey}
                     />
                     <Menu isLazy>
                       <MenuButton>
                         <Icon
-                          as={FiMoreHorizontal}
+                          as={ThreeDotsIcon}
                           boxSize={6}
                           color={theme.colors.text.grey}
                         />
