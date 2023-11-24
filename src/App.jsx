@@ -9,24 +9,21 @@ import Error from "./views/Error";
 import Login from "./views/auth/Login";
 import ProtectedRoute from "./views/ProtectedRoute";
 import Register from "./views/auth/Register";
-import { useStore } from "./Store";
 import Profile from "./views/auth/Profile";
 import EditPost from "./views/posts/EditPost";
 
 // const Profile = (lazy) => import("./views/auth/Profile");
 
 function App() {
-  const user = useStore((state) => state.currentUser);
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SharedLayout user={user} />}>
+        <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route
             path="posts"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <Posts />
               </ProtectedRoute>
             }
@@ -35,7 +32,7 @@ function App() {
           <Route
             path="single-post/:postId"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <SinglePost />
               </ProtectedRoute>
             }
@@ -48,7 +45,7 @@ function App() {
         <Route
           path="profile"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
@@ -56,7 +53,7 @@ function App() {
         <Route
           path="create-post"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <CreatePost />
             </ProtectedRoute>
           }
@@ -64,7 +61,7 @@ function App() {
         <Route
           path="edit-post"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <EditPost />
             </ProtectedRoute>
           }

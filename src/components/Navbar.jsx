@@ -27,10 +27,11 @@ import { BookmarksIcon } from "./icons/BookmarksIcon";
 import { FileTextIcon } from "./icons/FileTextIcon";
 import { BarChartIcon } from "./icons/BarChartIcon";
 
-export default function Navbar({ user }) {
+export default function Navbar() {
   const theme = useTheme();
   const navigate = useNavigate();
   const { logout } = useStore();
+  const user = useStore((state) => state.currentUser);
 
   const profileNavigate = () => {
     navigate("/profile");

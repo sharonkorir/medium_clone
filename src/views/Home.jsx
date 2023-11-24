@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import {
   Box,
   Center,
@@ -12,8 +13,9 @@ import {
   Tabs,
   useTheme,
 } from "@chakra-ui/react";
-import EditorsPick from "../components/EditorsPick";
-import Following from "../components/postsTabs/Following";
+
+const Following = React.lazy(() => import("../components/postsTabs/Following"));
+const EditorsPick = React.lazy(() => import("../components/EditorsPick"));
 
 export default function Home() {
   const theme = useTheme();
@@ -30,10 +32,14 @@ export default function Home() {
             <TabPanels>
               <TabPanel>Find more suggestions</TabPanel>
               <TabPanel>
-                <Following />
+                <Suspense>
+                  <Following />
+                </Suspense>
               </TabPanel>
               <TabPanel>
-                <Following />
+                <Suspense>
+                  <Following />
+                </Suspense>
               </TabPanel>
             </TabPanels>
           </Tabs>
@@ -53,7 +59,9 @@ export default function Home() {
           <Heading size="sm" fontWeight="medium" pb={2}>
             Staff Picks
           </Heading>
-          <EditorsPick />
+          <Suspense>
+            <EditorsPick />
+          </Suspense>
         </Stack>
       </Flex>
     </Box>

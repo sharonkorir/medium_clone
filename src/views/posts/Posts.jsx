@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import {
   Box,
   Button,
@@ -14,9 +15,15 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import EditorsPick from "../../components/EditorsPick";
-import Drafts from "../../components/postsTabs/Drafts";
-import Published from "../../components/postsTabs/Published";
+// import EditorsPick from "../../components/EditorsPick";
+// import Drafts from "../../components/postsTabs/Drafts";
+// import Published from "../../components/postsTabs/Published";
+
+const Drafts = React.lazy(() => import("../../components/postsTabs/Drafts"));
+const Published = React.lazy(() =>
+  import("../../components/postsTabs/Published")
+);
+const EditorsPick = React.lazy(() => import("../../components/EditorsPick"));
 
 export default function Posts() {
   const theme = useTheme();
@@ -67,10 +74,15 @@ export default function Posts() {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <Drafts />
+                <Suspense>
+                  {" "}
+                  <Drafts />
+                </Suspense>
               </TabPanel>
               <TabPanel>
-                <Published />
+                <Suspense>
+                  <Published />
+                </Suspense>
               </TabPanel>
               <TabPanel></TabPanel>
             </TabPanels>
@@ -91,7 +103,9 @@ export default function Posts() {
           <Heading size="sm" fontWeight="medium" pb={2}>
             Staff Picks
           </Heading>
-          <EditorsPick />
+          <Suspense>
+            <EditorsPick />
+          </Suspense>
         </Stack>
       </Flex>
     </Box>
