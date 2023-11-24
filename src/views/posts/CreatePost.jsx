@@ -23,8 +23,8 @@ import { PlusCircleIcon } from "../../components/icons/PlusCircleIcon";
 export default function CreatePost() {
   const theme = useTheme();
   const navigate = useNavigate();
-  const addPost = useStore((store) => store.addPost);
-  const user = useStore((state) => state.currentUser);
+  const addPost = useStore((store) => store?.addPost);
+  const user = useStore((state) => state?.currentUser);
 
   const {
     handleSubmit,
@@ -57,7 +57,7 @@ export default function CreatePost() {
             />
           </ReactRouterLink>
 
-          <Text fontSize="xs">Drafts in {user.email}</Text>
+          <Text fontSize="xs">Drafts in {user?.email}</Text>
         </Flex>
         <Flex alignItems="center" gap={{ sm: 2, lg: 6 }}>
           <Button
@@ -141,7 +141,7 @@ export default function CreatePost() {
           </InputGroup>
 
           <FormErrorMessage>
-            {errors.content && errors.cotent.message}
+            {errors.content && errors.content.message}
           </FormErrorMessage>
         </FormControl>
       </Box>

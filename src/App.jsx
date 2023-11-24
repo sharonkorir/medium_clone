@@ -1,4 +1,4 @@
-// import { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import SharedLayout from "./components/SharedLayout";
 import Home from "./views/Home";

@@ -24,22 +24,22 @@ export default function Published() {
     <>
       {posts.map((post) => {
         return (
-          <Box key={post.title}>
+          <Box key={post?.title}>
             <Box pt={4} pb={2}>
               {" "}
               <Heading
                 size="sm"
                 as={ReactRouterLink}
-                to={`/single-post/${post.title}`}
+                to={`/single-post/${post?.title}`}
                 fontWeight="semibold"
                 state={{ fromPublished: { post } }}
               >
-                {post.title}
+                {post?.title}
               </Heading>
             </Box>
 
             <Text noOfLines={2} color={theme.colors.text.grey}>
-              {post.content}
+              {post?.content}
             </Text>
             <Flex gap={2} alignItems="center" color={theme.colors.text.grey}>
               <Text fontSize="sm">Published about 1 hour ago </Text>
@@ -63,7 +63,7 @@ export default function Published() {
                   <MenuItem
                     color="tomato"
                     // as={Button}
-                    onClick={() => deletePost(post.title)}
+                    onClick={() => deletePost(post?.title)}
                   >
                     Delete story
                   </MenuItem>

@@ -24,13 +24,12 @@ import { BookmarkPlusIcon } from "../icons/BookmarkPlusIcon";
 export default function Following() {
   const theme = useTheme();
   const posts = useStore((state) => state.posts);
-  const deletePost = useStore((state) => state.deletePost);
 
   return (
     <>
       {posts.map((post) => {
         return (
-          <Box key={post.title} pt={8}>
+          <Box key={post?.title} pt={8}>
             <Flex alignItems="center" gap={2}>
               <Avatar size="xs" />
               <Text fontSize="sm">
@@ -45,18 +44,18 @@ export default function Following() {
             <Box py={2}>
               <Heading
                 as={ReactRouterLink}
-                to={`/single-post/${post.title}`}
+                to={`/single-post/${post?.title}`}
                 size="md"
                 fontWeight="semibold"
                 state={{ fromPublished: { post } }}
               >
-                {post.title}
+                {post?.title}
               </Heading>
             </Box>
             <Flex justifyContent="space-between" alignItems="center" gap={12}>
               <Box width="80%">
                 <Text noOfLines={3} pb={8}>
-                  {post.content}
+                  {post?.content}
                 </Text>
                 <Flex justifyContent="space-between">
                   <Flex gap={2} alignItems="center">

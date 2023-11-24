@@ -27,22 +27,22 @@ import { NotificationIcon } from "../../components/icons/NotificationIcon";
 export default function EditPost() {
   const theme = useTheme();
   const navigate = useNavigate();
-  const editPost = useStore((store) => store.editPost);
-  const user = useStore((state) => state.currentUser);
+  const editPost = useStore((store) => store?.editPost);
+  const user = useStore((state) => state?.currentUser);
   const location = useLocation();
-  const { fromEdit } = location.state;
-  let post = fromEdit.post;
+  const { fromEdit } = location?.state;
+  let post = fromEdit?.post;
 
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: { title: post.title, content: post.content },
+    defaultValues: { title: post?.title, content: post?.content },
   });
 
   const onSubmit = async (values) => {
-    await editPost(post.title, values);
+    await editPost(post?.title, values);
     navigate(`/single-post/${post.title}`, {
       state: { fromPublished: { post: { ...post, ...values } } },
     });
@@ -66,7 +66,7 @@ export default function EditPost() {
             />
           </ReactRouterLink>
 
-          <Heading size="md">{user.email}</Heading>
+          <Heading size="md">{user?.email}</Heading>
         </Flex>
         <Flex alignItems="center" gap={{ sm: 2, lg: 6 }}>
           <Flex gap={4} alignItems="center">
@@ -153,7 +153,7 @@ export default function EditPost() {
           </InputGroup>
 
           <FormErrorMessage>
-            {errors.content && errors.cotent.message}
+            {errors.content && errors.content.message}
           </FormErrorMessage>
         </FormControl>
       </Box>

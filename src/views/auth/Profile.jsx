@@ -28,7 +28,7 @@ export default function Profile() {
   } = useForm({
     defaultValues: {
       name: "",
-      email: currentUser.email,
+      email: currentUser?.email,
     },
   });
 

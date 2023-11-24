@@ -15,12 +15,12 @@ import IconBox from "../../components/IconBox";
 export default function SinglePost() {
   const theme = useTheme();
   const location = useLocation();
-  const { fromPublished } = location.state;
-  let post = fromPublished.post;
+  const { fromPublished } = location?.state;
+  let post = fromPublished?.post;
   return (
     <Box px="350px">
       <Heading as="h2" size="2xl" pt={16} fontWeight="extrabold">
-        {post.title}
+        {post?.title}
       </Heading>
       <Flex gap={2} py={8}>
         <Avatar />
@@ -45,7 +45,7 @@ export default function SinglePost() {
       <Divider />
       <IconBox />
       <Divider />
-      <Text py={6}>{post.content}</Text>
+      <Text py={6}>{post?.content}</Text>
       <Divider />
       <IconBox />
       <Divider />

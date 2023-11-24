@@ -15,9 +15,6 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-// import EditorsPick from "../../components/EditorsPick";
-// import Drafts from "../../components/postsTabs/Drafts";
-// import Published from "../../components/postsTabs/Published";
 
 const Drafts = React.lazy(() => import("../../components/postsTabs/Drafts"));
 const Published = React.lazy(() =>
