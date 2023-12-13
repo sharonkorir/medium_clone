@@ -1,0 +1,162 @@
+import { useForm } from "react-hook-form";
+import {
+  Link as ReactRouterLink,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import {
+  FormErrorMessage,
+  FormControl,
+  Input,
+  Button,
+  Box,
+  useTheme,
+  Flex,
+  Icon,
+  Avatar,
+  Textarea,
+  InputGroup,
+  Heading,
+  Link,
+} from "@chakra-ui/react";
+import { useStore } from "../../Store";
+import { MediumIcon } from "../../components/icons/MediumIcon";
+import { ThreeDotsIcon } from "../../components/icons/ThreeDotsIcon";
+import { NotificationIcon } from "../../components/icons/NotificationIcon";
+
+export default function EditPost() {
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const editPost = useStore((store) => store?.editPost);
+  const user = useStore((state) => state?.currentUser);
+  const location = useLocation();
+  const { fromEdit } = location?.state;
+  let post = fromEdit?.post;
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: { title: post?.title, content: post?.content },
+  });
+
+  const onSubmit = async (values) => {
+    await editPost(post?.title, values);
+    navigate(`/single-post/${post.title}`, {
+      state: { fromPublished: { post: { ...post, ...values } } },
+    });
+  };
+
+  return (
+    <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+      <Flex
+        h={user ? 14 : 20}
+        alignItems="center"
+        justifyContent="space-between"
+        px={{ sm: "20px", lg: "160px" }}
+        py={{ sm: 2, lg: 8 }}
+      >
+        <Flex alignItems="center" gap={2}>
+          <ReactRouterLink to="/">
+            <Icon
+              as={MediumIcon}
+              boxSize="2.75em"
+              _hover={{ cursor: "pointer" }}
+            />
+          </ReactRouterLink>
+
+          <Heading size="md">{user?.email}</Heading>
+        </Flex>
+        <Flex alignItems="center" gap={{ sm: 2, lg: 6 }}>
+          <Flex gap={4} alignItems="center">
+            <Button
+              variant="link"
+              as={ReactRouterLink}
+              to={`/single-post/${post.title}`}
+              state={{ fromPublished: { post } }}
+              color={theme.colors.text.grey}
+              fontSize="sm"
+            >
+              Back to story
+            </Button>
+            <Button
+              type="submit"
+              variant="solid"
+              color="white"
+              borderRadius="20px"
+              fontWeight="normal"
+              bg="#1a8917"
+              borderColor="white"
+              _hover={{ bg: "#187715" }}
+              size={{ sm: "xs", lg: "sm" }}
+            >
+              Save and publish
+            </Button>
+          </Flex>
+
+          <Icon
+            as={ThreeDotsIcon}
+            boxSize={6}
+            color={theme.colors.text.grey}
+            display={{ sm: "none", md: "block" }}
+          />
+          <Icon
+            as={NotificationIcon}
+            boxSize={6}
+            color={theme.colors.text.grey}
+            display={{ sm: "none", md: "block" }}
+          />
+          <Avatar size="sm" display={{ sm: "none", md: "block" }} />
+        </Flex>
+      </Flex>
+
+      <Box pt={{ sm: 6, lg: 10 }} px={{ sm: "20px", lg: "300px" }}>
+        <FormControl isInvalid={errors.title}>
+          <InputGroup alignItems="center" gap={6}>
+            <Input
+              variant="unstyled"
+              id="title"
+              placeholder="Title"
+              {...register("title", {
+                required: "This is required",
+                minLength: { value: 4, message: "Minimum length should be 4" },
+              })}
+              _placeholder={{
+                fontSize: "36px",
+                color: "rgb(179 179 177)",
+              }}
+              fontSize="36px"
+            />
+          </InputGroup>
+
+          <FormErrorMessage>
+            {errors.title && errors.title.message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.content}>
+          <InputGroup gap={6}>
+            <Textarea
+              rows="12"
+              variant="unstyled"
+              id="content"
+              placeholder="Tell your story..."
+              fontSize="20px"
+              {...register("content", {
+                required: "This is required",
+                minLength: { value: 4, message: "Minimum length should be 4" },
+              })}
+              _placeholder={{
+                color: "rgb(179 179 177)",
+              }}
+            />
+          </InputGroup>
+
+          <FormErrorMessage>
+            {errors.content && errors.content.message}
+          </FormErrorMessage>
+        </FormControl>
+      </Box>
+    </Box>
+  );
+}
